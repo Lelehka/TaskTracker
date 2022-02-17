@@ -1,17 +1,9 @@
-public class Subtask extends Task{
+package tasktracker.tasks;
 
-    Integer idSubTask = 0;
+public class Subtask extends Task{
 
     public Subtask(String nameTask, String taskDescription, String status) {
         super(nameTask, taskDescription, status);
-    }
-
-    public Integer getIdSubTask() {
-        return idSubTask;
-    }
-
-    public void setIdSubTask(Integer idSubTask) {
-        this.idSubTask = idSubTask;
     }
 
     @Override

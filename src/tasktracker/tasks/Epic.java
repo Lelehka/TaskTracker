@@ -1,28 +1,21 @@
-import java.util.HashMap;
+package tasktracker.tasks;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
-public class Epic extends Subtask{
+public class Epic extends Task{
 
-    protected Integer idEpic = 0;
-    protected HashMap<Integer, Subtask> subtasks;
+    protected ArrayList<Subtask> subtasks = new ArrayList<>();
 
     public Epic(String nameTask, String taskDescription, String status) {
         super(nameTask, taskDescription, status);
     }
 
-    public Integer getIdEpic() {
-        return idEpic;
-    }
-
-    public void setIdEpic(Integer idEpic) {
-        this.idEpic = idEpic;
-    }
-
-    public HashMap<Integer, Subtask> getSubtasks() {
+    public ArrayList<Subtask> getSubtasks() {
         return subtasks;
     }
 
-    public void setSubtasks(HashMap<Integer, Subtask> subtasks) {
+    public void setSubtasks(ArrayList<Subtask> subtasks) {
         this.subtasks = subtasks;
     }
 
@@ -42,11 +35,11 @@ public class Epic extends Subtask{
 
     @Override
     public String toString() {
-        return "Epic{" +
+        return "tasktracker.tasks.Epic{" +
                 "nameTask='" + nameTask + '\'' +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", status='" + status + '\'' +
-                //", subtasks=" + subtasks +
+                ", subtasks=" + subtasks +
                 '}';
     }
 }

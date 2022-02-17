@@ -1,10 +1,12 @@
+package tasktracker.tasks;
+
 import java.util.Objects;
 
 public class Task{
     protected String nameTask;
     protected String taskDescription;
     protected String status;
-    protected int idTask;
+    private int idTask;
 
     public Task(String nameTask, String taskDescription, String status) {
         this.nameTask = nameTask;
@@ -18,6 +20,14 @@ public class Task{
 
     public void setIdTask(int idTask) {
         this.idTask = idTask;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
@@ -35,7 +45,7 @@ public class Task{
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "tasktracker.tasks.Task{" +
                 "nameTask='" + nameTask + '\'' +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", status='" + status + '\'' +
