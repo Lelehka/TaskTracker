@@ -1,29 +1,42 @@
-import tasktracker.manager.Manager;
+import tasktracker.manager.InMemoryHistoryManager;
+import tasktracker.manager.InMemoryTaskManager;
+import tasktracker.manager.Managers;
 import tasktracker.tasks.Epic;
+import tasktracker.tasks.Status;
 import tasktracker.tasks.Subtask;
 import tasktracker.tasks.Task;
 
+import static tasktracker.tasks.Status.*;
+
 public class Main {
     public static void main(String[] args) {
-        Manager manager = new Manager();
+        InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
+        InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
+        Managers managers = new Managers();
 
-        manager.saveTask(new Task("Покупка", "написать список продуктов", "NEW"));
-        System.out.println(manager.getTaskById(0));
-        System.out.println(manager.updateTaskStatusById(0, "Done"));
-        manager.removeTasks();
+        inMemoryTaskManager.create(new Task("0", "написать список продуктов", Status.NEW));
+        inMemoryTaskManager.create(new Task("1", "написать список продуктов", Status.NEW));
+        inMemoryTaskManager.create(new Task("2", "написать список продуктов", Status.NEW));
+        System.out.println(inMemoryTaskManager.getTaskById(0));
+        System.out.println(inMemoryTaskManager.getTaskById(2));
+        System.out.println(inMemoryTaskManager.getTaskById(1));
+        System.out.println(inMemoryTaskManager.getTaskById(0));
+        System.out.println(inMemoryTaskManager.getTaskById(1));
+        System.out.println(inMemoryTaskManager.getTaskById(2));
 
-        manager.saveSubtasks(new Subtask("Собрать вещи", "нужно купить коробки, скотч", "NEW"));
-        manager.saveSubtasks(new Subtask("Заказать машину",
-                "грузовой автомобиль, заказать на пятницу к 15:00", "DONE"));
-        manager.saveSubtasks(new Subtask("Сделать дубликат ключей", "узнать где есть ближайший ремонт ключей", "NEW"));
-        System.out.println(manager.getSubtasks());
-        System.out.println(manager.updateSubtaskStatusById(0,"DONE"));
-        System.out.println(manager.updateSubtaskStatusById(2,"DONE"));
-        System.out.println(manager.getSubtasks());
+        inMemoryTaskManager.create(new Subtask("0", "нужно купить коробки, скотч", NEW));
+        inMemoryTaskManager.create(new Subtask("1",
+                "грузовой автомобиль, заказать на пятницу к 15:00", DONE));
+        inMemoryTaskManager.create(new Subtask("2", "узнать где есть ближайший ремонт ключей", NEW));
+        System.out.println(inMemoryTaskManager.getSubtaskById(1));
+        System.out.println(inMemoryTaskManager.getSubtaskById(2));
+        System.out.println(inMemoryTaskManager.getSubtaskById(0));
+        System.out.println(inMemoryTaskManager.getSubtaskById(0));
 
-        manager.saveEpic(new Epic("Переезд", "переезд в новую квартиру", "NEW"));
-        System.out.println(manager.getEpicById(0));
-        manager.updateEpicStatus();
-        System.out.println((manager.getEpics()));
+       inMemoryTaskManager.create(new Epic("0", "переезд в новую квартиру", NEW));
+       System.out.println(inMemoryTaskManager.getEpicById(0));
+
+       System.out.println(managers.getDefaultHistory());
+       System.out.println(inMemoryTaskManager.getInMemoryHistoryManager());
     }
 }
