@@ -1,17 +1,21 @@
 package tasktracker.manager;
 
 import tasktracker.tasks.Epic;
+import tasktracker.tasks.Status;
 import tasktracker.tasks.Subtask;
 import tasktracker.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class Manager {
-    //Статусы "NEW", "IN_PROGRESS", "DONE"
+public class InMemoryTaskManager implements TaskManager{
+
     private HashMap<Integer, Task> tasks = new HashMap<>();
     private ArrayList<Subtask> subtasks = new ArrayList<>();
     private HashMap<Integer, Epic> epics = new HashMap<>();
+
+    InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
 
     private Integer taskId = 0;
     private Integer subtaskId = 0;
@@ -30,20 +34,25 @@ public class Manager {
     }
 
     //методы для задач
-    public void saveTask(Task task) {
+    @Override
+    public void create(Task task) {
         tasks.put(getTaskId(), task);
     }
 
+    @Override
     public HashMap<Integer, Task> getTasks() {
         return tasks;
     }
 
+    @Override
     public Task getTaskById(Integer taskId) {
         Task valueTask = tasks.get(taskId);
+        inMemoryHistoryManager.add(valueTask);
         return valueTask;
     }
 
-    public Task updateTaskStatusById(Integer taskId, String status) {
+    @Override
+    public Task updateTaskStatusById(Integer taskId, Status status) {
         if(tasks.containsKey(taskId)) {
             Task valueTask = tasks.get(taskId);
             valueTask.setStatus(status);
@@ -53,82 +62,98 @@ public class Manager {
         }
     }
 
-    public void removeTasks(){
+    @Override
+    public void deleteTasks() {
         tasks.clear();
     }
 
-    public void removeTaskById(Integer idTask){
+    @Override
+    public void deleteTaskById(Integer idTask){
         tasks.remove(idTask);
     }
 
     //методы для подзадач
-    public void saveSubtasks(Subtask subtask){
+    @Override
+    public void create(Subtask subtask) {
         subtasks.add(getSubtaskId(), subtask);
     }
 
+    @Override
     public ArrayList<Subtask> getSubtasks() {
         return subtasks;
     }
 
-    public void setSubtasks(ArrayList<Subtask> subtasks) {
-        this.subtasks = subtasks;
-    }
-
-    public Subtask getSubtaskBtId(Integer subtaskId) {
+    @Override
+    public Subtask getSubtaskById(Integer subtaskId) {
         Subtask valueSubtask = subtasks.get(subtaskId);
+        inMemoryHistoryManager.add(valueSubtask);
         return valueSubtask;
     }
 
-    public Subtask updateSubtaskStatusById(Integer subtaskId, String status){
+    @Override
+    public Subtask updateSubtaskStatusById(Integer subtaskId, Status status) {
         Subtask valueSubtask = subtasks.get(subtaskId);
         valueSubtask.setStatus(status);
         return subtasks.set(subtaskId, valueSubtask);
     }
 
-    public void removeSubtasks(){
+    @Override
+    public void deleteSubtasks(){
         subtasks.clear();
     }
 
-    public void removeSubtaskById(Integer subtaskId){
+    @Override
+    public void deleteSubtasksById(Integer subtaskId){
         subtasks.remove(subtaskId);
     }
 
     //методы для Эпик
-    public void saveEpic(Epic epic) {
+    @Override
+    public void create(Epic epic) {
         epic.setSubtasks(subtasks);
         epics.put(getEpicId(), epic);
     }
 
+    @Override
     public HashMap<Integer, Epic> getEpics() {
         return epics;
     }
 
+    @Override
     public Epic getEpicById(Integer epicId) {
         Epic valueEpic = epics.get(epicId);
+        inMemoryHistoryManager.add(valueEpic);
         return valueEpic;
     }
 
-    public void updateEpicStatus(){
-        String status = "NEW";
+    @Override
+    public void updateEpicStatus() {
         for (Integer epicId : epics.keySet()){
             Epic valueEpic = epics.get(epicId);
             for (int i = 0; i < subtasks.size(); i++){
                 Subtask valueSubtask = subtasks.get(i);
-                if(!(valueSubtask.getStatus().equals(status))) {
-                    status = valueSubtask.getStatus();
+                Status valueStatus = valueSubtask.getStatus();
+                if(valueStatus != Status.DONE) {
+                    valueSubtask.setStatus(valueStatus);
                 } else {
-                    valueEpic.setStatus(status);
+                    valueEpic.setStatus(valueStatus);
                     epics.put(epicId, valueEpic);
                 }
             }
         }
     }
 
-    public void removeEpics(){
+    @Override
+    public void deleteEpics(){
         epics.clear();
     }
 
-    public void removeEpicById(Integer idEpic){
+    @Override
+    public void deleteEpicById(Integer idEpic){
         epics.remove(idEpic);
+    }
+
+    public List<Task> getInMemoryHistoryManager(){
+        return inMemoryHistoryManager.getHistory();
     }
 }
