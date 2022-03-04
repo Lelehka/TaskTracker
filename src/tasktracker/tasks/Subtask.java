@@ -2,7 +2,7 @@ package tasktracker.tasks;
 
 public class Subtask extends Task{
 
-    public Subtask(String nameTask, String taskDescription, String status) {
+    public Subtask(String nameTask, String taskDescription, Status status) {
         super(nameTask, taskDescription, status);
     }
 

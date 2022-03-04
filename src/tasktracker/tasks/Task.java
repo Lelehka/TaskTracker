@@ -1,14 +1,16 @@
 package tasktracker.tasks;
 
+import tasktracker.manager.TaskManager;
+
 import java.util.Objects;
 
-public class Task{
+public class Task {
     protected String nameTask;
     protected String taskDescription;
-    protected String status;
+    Status status;
     private int idTask;
 
-    public Task(String nameTask, String taskDescription, String status) {
+    public Task(String nameTask, String taskDescription, Status status) {
         this.nameTask = nameTask;
         this.taskDescription = taskDescription;
         this.status = status;
@@ -22,13 +24,14 @@ public class Task{
         this.idTask = idTask;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -49,6 +52,6 @@ public class Task{
                 "nameTask='" + nameTask + '\'' +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", status='" + status + '\'' +
-                '}';
+                '}' + '\n';
     }
 }
