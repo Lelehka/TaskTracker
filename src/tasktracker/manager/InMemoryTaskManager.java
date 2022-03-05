@@ -64,12 +64,17 @@ public class InMemoryTaskManager implements TaskManager{
 
     @Override
     public void deleteTasks() {
+        for (Integer task : tasks.keySet()) {
+            Task deleteTask = tasks.get(task);
+            inMemoryHistoryManager.deleteHistory(deleteTask);
+        }
         tasks.clear();
     }
 
     @Override
     public void deleteTaskById(Integer idTask){
-        tasks.remove(idTask);
+        Task deleteTask = tasks.remove(idTask);
+        inMemoryHistoryManager.deleteHistory(deleteTask);
     }
 
     //методы для подзадач
@@ -99,11 +104,17 @@ public class InMemoryTaskManager implements TaskManager{
 
     @Override
     public void deleteSubtasks(){
+        for (int i = 0; i < subtasks.size(); i++){
+            Task deleteSubtask = subtasks.get(i);
+            inMemoryHistoryManager.deleteHistory(deleteSubtask);
+        }
         subtasks.clear();
     }
 
     @Override
     public void deleteSubtasksById(Integer subtaskId){
+        Task deleteSubtask = tasks.get(subtaskId);
+        inMemoryHistoryManager.deleteHistory(deleteSubtask);
         subtasks.remove(subtaskId);
     }
 
@@ -145,12 +156,17 @@ public class InMemoryTaskManager implements TaskManager{
 
     @Override
     public void deleteEpics(){
+        for (Integer epic : epics.keySet()) {
+            Task deleteEpic = epics.get(epic);
+            inMemoryHistoryManager.deleteHistory(deleteEpic);
+        }
         epics.clear();
     }
 
     @Override
     public void deleteEpicById(Integer idEpic){
-        epics.remove(idEpic);
+        Task deleteEpic = epics.remove(idEpic);
+        inMemoryHistoryManager.deleteHistory(deleteEpic);
     }
 
     public List<Task> getInMemoryHistoryManager(){

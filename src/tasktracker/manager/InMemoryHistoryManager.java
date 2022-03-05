@@ -6,19 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private int count = 0;
-    List<Task> historyTask = new ArrayList<>();
+    private final static int maxSize = 10;
+    private List<Task> historyTask = new ArrayList<>(maxSize);
 
     @Override
     public void add(Task task) {
-        count++;
-        if(count >= 11){
+        if(historyTask.size() >= maxSize){
             historyTask.add(task);
             historyTask.remove(0);
         } else {
             historyTask.add(task);
         }
 
+    }
+
+    public void deleteHistory(Task task){
+        if (historyTask.contains(task)){
+            historyTask.remove(task);
+        }
     }
 
     @Override
@@ -29,8 +34,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public String toString() {
         return "InMemoryHistoryManager{" +
-                "count=" + count +
-                ", historyTask=" + historyTask +
+                "historyTask=" + historyTask +
                 '}';
     }
 }
