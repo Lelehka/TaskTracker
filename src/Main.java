@@ -15,14 +15,13 @@ public class Main {
         Managers managers = new Managers();
 
         inMemoryTaskManager.create(new Task("0", "написать список продуктов", Status.NEW));
-        inMemoryTaskManager.create(new Task("1", "написать список продуктов", Status.NEW));
+        inMemoryTaskManager.create(new Task("1d", "написать список продуктов", Status.NEW));
         inMemoryTaskManager.create(new Task("2", "написать список продуктов", Status.NEW));
         System.out.println(inMemoryTaskManager.getTaskById(0));
         System.out.println(inMemoryTaskManager.getTaskById(2));
         System.out.println(inMemoryTaskManager.getTaskById(1));
-        System.out.println(inMemoryTaskManager.getTaskById(0));
-        System.out.println(inMemoryTaskManager.getTaskById(1));
-        System.out.println(inMemoryTaskManager.getTaskById(2));
+        inMemoryTaskManager.deleteTaskById(1);
+        inMemoryTaskManager.deleteTasks();
 
         inMemoryTaskManager.create(new Subtask("0", "нужно купить коробки, скотч", NEW));
         inMemoryTaskManager.create(new Subtask("1",
@@ -31,10 +30,13 @@ public class Main {
         System.out.println(inMemoryTaskManager.getSubtaskById(1));
         System.out.println(inMemoryTaskManager.getSubtaskById(2));
         System.out.println(inMemoryTaskManager.getSubtaskById(0));
-        System.out.println(inMemoryTaskManager.getSubtaskById(0));
+        inMemoryTaskManager.deleteSubtasksById(0);
+        inMemoryTaskManager.deleteSubtasks();
 
        inMemoryTaskManager.create(new Epic("0", "переезд в новую квартиру", NEW));
        System.out.println(inMemoryTaskManager.getEpicById(0));
+       inMemoryTaskManager.deleteEpicById(0);
+       inMemoryTaskManager.deleteEpics();
 
        System.out.println(managers.getDefaultHistory());
        System.out.println(inMemoryTaskManager.getInMemoryHistoryManager());
