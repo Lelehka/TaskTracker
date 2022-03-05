@@ -38,7 +38,7 @@ public class Epic extends Task{
         return "tasktracker.tasks.Epic{" +
                 "nameTask='" + nameTask + '\'' +
                 ", taskDescription='" + taskDescription + '\'' +
-                ", status='" + status + '\'' +
+                ", status='" + getStatus() + '\'' +
                 ", subtasks=" + subtasks +
                 '}' + '\n';
     }
