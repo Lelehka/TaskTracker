@@ -8,7 +8,7 @@ public class Task {
     protected String nameTask;
     protected String taskDescription;
     private Status status;
-    private int idTask;
+    private int id = 0;
 
     public Task(String nameTask, String taskDescription, Status status) {
         this.nameTask = nameTask;
@@ -16,12 +16,12 @@ public class Task {
         this.status = status;
     }
 
-    public int getIdTask() {
-        return idTask++;
+    public int getId() {
+        return id++;
     }
 
-    public void setIdTask(int idTask) {
-        this.idTask = idTask;
+    public void setIdTask(int id) {
+        this.id = id;
     }
 
     public Status getStatus() {
@@ -38,12 +38,12 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return idTask == task.idTask && Objects.equals(nameTask, task.nameTask) && Objects.equals(taskDescription, task.taskDescription) && Objects.equals(status, task.status);
+        return id == task.id && Objects.equals(nameTask, task.nameTask) && Objects.equals(taskDescription, task.taskDescription) && Objects.equals(status, task.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nameTask, taskDescription, idTask, status);
+        return Objects.hash(nameTask, taskDescription, id, status);
     }
 
     @Override

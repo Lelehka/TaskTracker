@@ -1,4 +1,4 @@
-import tasktracker.manager.InMemoryHistoryManager;
+import tasktracker.history.InMemoryHistoryManager;
 import tasktracker.manager.InMemoryTaskManager;
 import tasktracker.manager.Managers;
 import tasktracker.tasks.Epic;
@@ -14,31 +14,37 @@ public class Main {
         InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
         Managers managers = new Managers();
 
-        inMemoryTaskManager.create(new Task("0", "написать список продуктов", Status.NEW));
-        inMemoryTaskManager.create(new Task("1d", "написать список продуктов", Status.NEW));
-        inMemoryTaskManager.create(new Task("2", "написать список продуктов", Status.NEW));
-        System.out.println(inMemoryTaskManager.getTaskById(0));
-        System.out.println(inMemoryTaskManager.getTaskById(2));
-        System.out.println(inMemoryTaskManager.getTaskById(1));
-        inMemoryTaskManager.deleteTaskById(1);
-        inMemoryTaskManager.deleteTasks();
+        inMemoryTaskManager.create(new Task("0", "какие-то дела 1", Status.NEW));
+        inMemoryTaskManager.create(new Task("1d", "какие-то дела 2", Status.NEW));
+        inMemoryTaskManager.create(new Task("2", "какие-то дела 3", Status.NEW));
+        inMemoryTaskManager.getTaskById(0);
+        inMemoryTaskManager.getTaskById(2);
+        inMemoryTaskManager.getTaskById(1);
+        inMemoryTaskManager.getTaskById(1);
+        inMemoryTaskManager.getTaskById(2);
+//        inMemoryTaskManager.deleteTaskById(1);
+//        inMemoryTaskManager.deleteTasks();
 
-        inMemoryTaskManager.create(new Subtask("0", "нужно купить коробки, скотч", NEW));
+        inMemoryTaskManager.create(new Subtask("0", "под дела 1", NEW));
         inMemoryTaskManager.create(new Subtask("1",
-                "грузовой автомобиль, заказать на пятницу к 15:00", DONE));
-        inMemoryTaskManager.create(new Subtask("2", "узнать где есть ближайший ремонт ключей", NEW));
-        System.out.println(inMemoryTaskManager.getSubtaskById(1));
-        System.out.println(inMemoryTaskManager.getSubtaskById(2));
-        System.out.println(inMemoryTaskManager.getSubtaskById(0));
-        inMemoryTaskManager.deleteSubtasksById(0);
-        inMemoryTaskManager.deleteSubtasks();
+                "под дела 2", DONE));
+        inMemoryTaskManager.create(new Subtask("2", "под дела 3", NEW));
+        inMemoryTaskManager.getSubtaskById(1);
+        inMemoryTaskManager.getSubtaskById(2);
+        inMemoryTaskManager.getSubtaskById(0);
+        inMemoryTaskManager.getSubtaskById(0);
+        inMemoryTaskManager.getSubtaskById(0);
+        inMemoryTaskManager.getSubtaskById(2);
+//        inMemoryTaskManager.deleteSubtasksById(0);
+//        inMemoryTaskManager.deleteSubtasks();
 
        inMemoryTaskManager.create(new Epic("0", "переезд в новую квартиру", NEW));
-       System.out.println(inMemoryTaskManager.getEpicById(0));
-       inMemoryTaskManager.deleteEpicById(0);
-       inMemoryTaskManager.deleteEpics();
+       inMemoryTaskManager.getEpicById(0);
+//       inMemoryTaskManager.deleteEpicById(0);
+//       inMemoryTaskManager.deleteEpics();
 
-       System.out.println(managers.getDefaultHistory());
+//       System.out.println(managers.getDefaultHistory());
+       System.out.println("------------------------------------------");
        System.out.println(inMemoryTaskManager.getInMemoryHistoryManager());
     }
 }

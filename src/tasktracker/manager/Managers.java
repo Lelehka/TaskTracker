@@ -1,5 +1,8 @@
 package tasktracker.manager;
 
+import tasktracker.history.HistoryManager;
+import tasktracker.history.InMemoryHistoryManager;
+
 public class Managers{
 
     public TaskManager getDefault() {
