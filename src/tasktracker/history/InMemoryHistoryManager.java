@@ -10,45 +10,33 @@ public class InMemoryHistoryManager implements HistoryManager{
     private HistoryLinkedList<Task> historyLinkedList = new HistoryLinkedList<>();
     private Map<Integer, Task> history = new HashMap<>();
 
-    private int id = 0;
-
-    public int getId() {
-        return id++;
-    }
-
     @Override
     public void add(Task task) {
+        history.put(task.getId(), task);
+
         historyLinkedList.linkLast(task);
+        Task tasks = historyLinkedList.getTasks();
 
-        Task taskHistory = historyLinkedList.getTasks();
-
-        history.put(getId(), taskHistory);
-
-        for (Integer i : history.keySet()) {
-            Task tasks = history.get(i);
-            if(historyTask.size() >= maxSize){
+        for (Integer i : history.keySet()){
+            if (i.equals(tasks.getId())) {
+                historyLinkedList.removeNode(tasks);
+                historyTask.remove(tasks);
+                history.remove(tasks.getId());
                 historyTask.add(tasks);
-                historyTask.remove(0);
             } else {
-                historyTask.add(tasks);
+                historyTask.add(task);
             }
-        }
-
-        Set<Task> historySet = new HashSet<>(historyTask);
-        historyTask.clear();
-        historyTask.addAll(historySet);
-    }
-
-    @Override
-    public void remove(Task task){
-        if (historyTask.contains(task)){
-            historyTask.remove(task);
         }
     }
 
     @Override
     public List<Task> getHistory() {
         return historyTask;
+    }
+
+    @Override
+    public void remove(int id) {
+        historyTask.remove(id);
     }
 
     @Override
@@ -68,7 +56,6 @@ public class InMemoryHistoryManager implements HistoryManager{
             final Node<T> oldTail = tail;
             final Node<T> newNode = new Node<>(oldTail, element, null);
             tail = newNode;
-
             if (oldTail != null) {
                 oldTail.next = newNode;
             } else {
@@ -78,9 +65,7 @@ public class InMemoryHistoryManager implements HistoryManager{
         }
 
         public T getTasks() {
-
             return tail.data;
-
         }
 
         public void removeNode(T element){

@@ -8,16 +8,18 @@ public class Task {
     protected String nameTask;
     protected String taskDescription;
     private Status status;
-    private int id = 0;
+    private int id;
+    private static int idSequence = 0;
 
     public Task(String nameTask, String taskDescription, Status status) {
+        this.id = idSequence++;
         this.nameTask = nameTask;
         this.taskDescription = taskDescription;
         this.status = status;
     }
 
     public int getId() {
-        return id++;
+        return id;
     }
 
     public void setIdTask(int id) {
@@ -48,7 +50,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "tasktracker.tasks.Task{" +
+        return "tasktracker.tasks.Task{" + id + ": " +
                 "nameTask='" + nameTask + '\'' +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", status='" + status + '\'' +

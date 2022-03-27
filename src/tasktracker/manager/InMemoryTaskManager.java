@@ -9,7 +9,6 @@ import tasktracker.tasks.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager{
 
@@ -66,19 +65,17 @@ public class InMemoryTaskManager implements TaskManager{
 
     @Override
     public void deleteTasks() {
-        for (Integer task : tasks.keySet()) {
-            Task deleteTask = tasks.get(task);
-            System.out.println(deleteTask);
-            inMemoryHistoryManager.remove(deleteTask);
+        for (Integer i : tasks.keySet()) {
+            Task task = tasks.get(i);
+            inMemoryHistoryManager.remove(task.getId());
         }
         tasks.clear();
     }
 
     @Override
     public void deleteTaskById(Integer idTask){
-        Task deleteTask = tasks.get(idTask);
-        inMemoryHistoryManager.remove(deleteTask);
-        tasks.remove(idTask);
+        Task task = tasks.remove(idTask);
+        inMemoryHistoryManager.remove(task.getId());
     }
 
     //методы для подзадач
@@ -108,17 +105,17 @@ public class InMemoryTaskManager implements TaskManager{
 
     @Override
     public void deleteSubtasks(){
-        for (int i = 0; i < subtasks.size(); i++){
-            Task deleteSubtask = subtasks.get(i);
-            inMemoryHistoryManager.remove(deleteSubtask);
+        for (int i = 0; i < subtasks.size(); i++) {
+            Task task = subtasks.get(i);
+            inMemoryHistoryManager.remove(task.getId());
         }
         subtasks.clear();
     }
 
     @Override
-    public void deleteSubtasksById(Integer subtaskId){
-        Task deleteSubtask = tasks.get(subtaskId);
-        inMemoryHistoryManager.remove(deleteSubtask);
+    public void deleteSubtasksById(Integer subtaskId) {
+        Task task = subtasks.get(subtaskId);
+        inMemoryHistoryManager.remove(task.getId());
         subtasks.remove(subtaskId);
     }
 
@@ -161,20 +158,19 @@ public class InMemoryTaskManager implements TaskManager{
     @Override
     public void deleteEpics(){
         for (Integer epic : epics.keySet()) {
-            Task deleteEpic = epics.get(epic);
-            inMemoryHistoryManager.remove(deleteEpic);
+            Task task = epics.get(epic);
+            inMemoryHistoryManager.remove(task.getId());
         }
         epics.clear();
     }
 
     @Override
-    public void deleteEpicById(Integer idEpic){
-        Task deleteEpic = epics.get(idEpic);
-        inMemoryHistoryManager.remove(deleteEpic);
-        epics.remove(idEpic);
+    public void deleteEpicById(Integer idEpic) {
+        Task task = epics.remove(idEpic);
+        inMemoryHistoryManager.remove(task.getId());
     }
 
-    public List<Task> getInMemoryHistoryManager(){
+    public List<Task> getInMemoryHistoryManager() {
         return inMemoryHistoryManager.getHistory();
     }
 }
