@@ -1,41 +1,39 @@
+import tasktracker.history.HistoryManager;
 import tasktracker.history.InMemoryHistoryManager;
 import tasktracker.manager.InMemoryTaskManager;
 import tasktracker.manager.Managers;
-import tasktracker.tasks.Epic;
-import tasktracker.tasks.StatusTask;
-import tasktracker.tasks.Subtask;
-import tasktracker.tasks.Task;
+import tasktracker.manager.TaskManager;
+import tasktracker.tasks.*;
 
 import static tasktracker.tasks.StatusTask.*;
 
 public class Main {
     public static void main(String[] args) {
-        InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
-        Managers managers = new Managers();
-        InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
+        TaskManager taskManager = Managers.getDefault();
+        HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
 
-        inMemoryTaskManager.create(new Task("0", "какие-то дела 1", StatusTask.NEW));
-        inMemoryTaskManager.create(new Task("1", "какие-то дела 2", StatusTask.NEW));
-        inMemoryTaskManager.create(new Task("2", "какие-то дела 3", StatusTask.NEW));
-        inMemoryTaskManager.getTaskById(0);
-        inMemoryTaskManager.getTaskById(1);
-        inMemoryTaskManager.getTaskById(2);
-        inMemoryTaskManager.getTaskById(1);
-//        inMemoryTaskManager.deleteTaskById(2);
-//        inMemoryTaskManager.deleteTasks();
-        inMemoryTaskManager.create(new Epic("3", "эпик 1", NEW));
-        inMemoryTaskManager.getEpicById(0);
+        taskManager.create(new Task(GenerateId.getId(),"0", "какие-то дела 1", StatusTask.NEW));
+        taskManager.create(new Task(GenerateId.getId(), "1", "какие-то дела 2", StatusTask.NEW));
+        taskManager.create(new Task(GenerateId.getId(),"2", "какие-то дела 3", StatusTask.NEW));
+        taskManager.getTaskById(0);
+        taskManager.getTaskById(1);
+        taskManager.getTaskById(2);
+        taskManager.getTaskById(1);
+//        taskManager.deleteTaskById(2);
+//        taskManager.deleteTasks();
+        taskManager.create(new Epic(GenerateId.getId(), "3", "эпик 1", NEW));
+        taskManager.getEpicById(3);
 
-        inMemoryTaskManager.create(new Subtask(0, "sub 1", "ffvfdvfd", NEW));
-        inMemoryTaskManager.create(new Subtask(0, "sub 2", "ffvfdvfd", NEW));
+        taskManager.create(new Subtask(3, GenerateId.getId(), "sub 1", "ffvfdvfd", NEW));
+        taskManager.create(new Subtask(3, GenerateId.getId(), "sub 2", "ffvfdvfd", NEW));
 
-        inMemoryTaskManager.create(new Epic("6" , "epic 2", NEW));
-        inMemoryTaskManager.getEpicById(3);
-
+        taskManager.create(new Epic(GenerateId.getId(),"4" , "epic 2", NEW));
+        taskManager.getEpicById(4);
 
 
-//       System.out.println(managers.getDefaultHistory());
+
        System.out.println("------------------------------------------");
-       System.out.println(inMemoryTaskManager.getInMemoryHistoryManager());
+        System.out.println(inMemoryHistoryManager.getHistory());
+       System.out.println(taskManager.getInMemoryHistoryManager());
     }
 }

@@ -1,7 +1,6 @@
 package tasktracker.manager;
 
 import tasktracker.history.HistoryManager;
-import tasktracker.history.InMemoryHistoryManager;
 import tasktracker.tasks.*;
 
 import java.util.ArrayList;
@@ -16,27 +15,10 @@ public class InMemoryTaskManager implements TaskManager{
 
     HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
 
-    private Integer taskId = 0;
-    private Integer subtaskId = 0;
-    private Integer epicId = 0;
-
-    public Integer getTaskId() {
-        return taskId++;
-    }
-
-    public Integer getSubtaskId() {
-        return subtaskId++;
-    }
-
-    public Integer getEpicId() {
-        return epicId++;
-    }
-
     //методы для задач
     @Override
     public void create(Task task) {
-        tasks.put(getTaskId(), task);
-
+        tasks.put(task.getId(), task);
     }
 
     @Override
@@ -54,7 +36,9 @@ public class InMemoryTaskManager implements TaskManager{
     @Override
     public Task getTaskById(Integer taskId) {
         Task valueTask = tasks.get(taskId);
-        inMemoryHistoryManager.add(valueTask);
+        if (valueTask != null) {
+            inMemoryHistoryManager.add(valueTask);
+        }
         return valueTask;
     }
 
@@ -87,11 +71,12 @@ public class InMemoryTaskManager implements TaskManager{
     //методы для подзадач
     @Override
     public void create(Subtask subtask) {
+        System.out.println(subtask.getEpicId());
         if (epics.containsKey(subtask.getEpicId())) {
             Epic epic = epics.get(subtask.getEpicId());
-            subtasks.add(getSubtaskId(), subtask);
+            subtasks.add(subtask.getId(), subtask);
             epic.setSubtasks(subtasks);
-            epics.put(getEpicId(), epic);
+            epics.put(epic.getId(), epic);
         }
     }
 
@@ -140,7 +125,7 @@ public class InMemoryTaskManager implements TaskManager{
     //методы для Эпик
     @Override
     public void create(Epic epic) {
-        epics.put(getEpicId(), epic);
+        epics.put(epic.getId(), epic);
     }
 
     @Override
@@ -158,7 +143,11 @@ public class InMemoryTaskManager implements TaskManager{
     @Override
     public Epic getEpicById(Integer epicId) {
         Epic valueEpic = epics.get(epicId);
-        inMemoryHistoryManager.add(valueEpic);
+
+        if (valueEpic != null) {
+            inMemoryHistoryManager.add(valueEpic);
+        }
+
         return valueEpic;
     }
 
@@ -194,6 +183,7 @@ public class InMemoryTaskManager implements TaskManager{
         inMemoryHistoryManager.remove(task.getId());
     }
 
+    @Override
     public List<Task> getInMemoryHistoryManager() {
         return inMemoryHistoryManager.getHistory();
     }

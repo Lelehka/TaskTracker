@@ -4,12 +4,12 @@ public class Subtask extends Task{
 
     private int epicId;
 
-    public Subtask(String nameTask, String taskDescription, StatusTask status) {
-        super(nameTask, taskDescription, status);
+    public Subtask(int id, String nameTask, String taskDescription, StatusTask status) {
+        super(id, nameTask, taskDescription, status);
     }
 
-    public Subtask(int epicId, String nameTask, String taskDescription, StatusTask status) {
-        super(nameTask, taskDescription, status);
+    public Subtask(int epicId, int id, String nameTask, String taskDescription, StatusTask status) {
+        super(id, nameTask, taskDescription, status);
         this.epicId = epicId;
     }
 
@@ -30,7 +30,7 @@ public class Subtask extends Task{
     @Override
     public String toString() {
 
-         return getId() + ": tasktracker.tasks.Task{" + epicId + " = " +
+         return ": tasktracker.tasks.Task{" + epicId + " = " +
                 "nameTask='" + nameTask + '\'' +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", status='" + getStatus() + '\'' +

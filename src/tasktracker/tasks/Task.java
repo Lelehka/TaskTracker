@@ -7,15 +7,12 @@ public class Task {
     protected String taskDescription;
     private StatusTask status;
     private int id;
-//    private static int idSequence = 0;
-
 
     public Task() {
-
     }
 
-    public Task(String nameTask, String taskDescription, StatusTask status) {
-        this.id = GenerateId.getId();
+    public Task(int id, String nameTask, String taskDescription, StatusTask status) {
+        this.id = id;
         this.nameTask = nameTask;
         this.taskDescription = taskDescription;
         this.status = status;

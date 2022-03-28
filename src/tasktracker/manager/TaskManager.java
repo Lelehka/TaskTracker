@@ -7,6 +7,7 @@ import tasktracker.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public interface TaskManager {
 
@@ -51,4 +52,6 @@ public interface TaskManager {
     void deleteSubtasksById(Integer id);
 
     void deleteEpicById(Integer id);
+
+    List<Task> getInMemoryHistoryManager();
 }
