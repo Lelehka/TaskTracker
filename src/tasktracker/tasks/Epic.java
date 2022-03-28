@@ -7,7 +7,7 @@ public class Epic extends Task{
 
     protected ArrayList<Subtask> subtasks = new ArrayList<>();
 
-    public Epic(String nameTask, String taskDescription, Status status) {
+    public Epic(String nameTask, String taskDescription, StatusTask status) {
         super(nameTask, taskDescription, status);
     }
 
@@ -35,7 +35,7 @@ public class Epic extends Task{
 
     @Override
     public String toString() {
-        return "tasktracker.tasks.Epic{" + getId() + ": " +
+        return getId() + ": tasktracker.tasks.Epic{"  +
                 "nameTask='" + nameTask + '\'' +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", status='" + getStatus() + '\'' + '\n' +

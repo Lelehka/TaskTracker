@@ -1,18 +1,21 @@
 package tasktracker.tasks;
 
-import tasktracker.manager.TaskManager;
-
 import java.util.Objects;
 
 public class Task {
     protected String nameTask;
     protected String taskDescription;
-    private Status status;
+    private StatusTask status;
     private int id;
-    private static int idSequence = 0;
+//    private static int idSequence = 0;
 
-    public Task(String nameTask, String taskDescription, Status status) {
-        this.id = idSequence++;
+
+    public Task() {
+
+    }
+
+    public Task(String nameTask, String taskDescription, StatusTask status) {
+        this.id = GenerateId.getId();
         this.nameTask = nameTask;
         this.taskDescription = taskDescription;
         this.status = status;
@@ -26,11 +29,11 @@ public class Task {
         this.id = id;
     }
 
-    public Status getStatus() {
+    public StatusTask getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(StatusTask status) {
         this.status = status;
     }
 
@@ -50,7 +53,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "tasktracker.tasks.Task{" + id + ": " +
+        return id + ": tasktracker.tasks.Task{" +
                 "nameTask='" + nameTask + '\'' +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", status='" + status + '\'' +

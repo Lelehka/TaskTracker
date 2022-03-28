@@ -1,7 +1,7 @@
 package tasktracker.manager;
 
 import tasktracker.tasks.Epic;
-import tasktracker.tasks.Status;
+import tasktracker.tasks.StatusTask;
 import tasktracker.tasks.Subtask;
 import tasktracker.tasks.Task;
 
@@ -16,6 +16,12 @@ public interface TaskManager {
 
     void create(Epic epic);
 
+    void updateTask(Task task);
+
+    void updateSubTask(Subtask subtask);
+
+    void updateEpic(Epic epic);
+
     HashMap<Integer, Task> getTasks();
 
     HashMap<Integer, Epic> getEpics();
@@ -28,9 +34,9 @@ public interface TaskManager {
 
     Epic getEpicById(Integer id);
 
-    Task updateTaskStatusById(Integer id, Status status);
+    Task updateTaskStatusById(Integer id, StatusTask status);
 
-    Subtask updateSubtaskStatusById(Integer id, Status status);
+    Subtask updateSubtaskStatusById(Integer id, StatusTask status);
 
     void updateEpicStatus();
 
